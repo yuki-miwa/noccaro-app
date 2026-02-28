@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
-import '../../../app/router.dart';
 import '../application/posts_controller.dart';
 
 class PostDetailScreen extends ConsumerWidget {
@@ -20,7 +19,13 @@ class PostDetailScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('記事詳細'),
-        leading: BackButton(onPressed: () => context.go(AppRoute.posts.path)),
+        leading: BackButton(
+          onPressed: () {
+            if (context.canPop()) {
+              context.pop();
+            }
+          },
+        ),
       ),
       body: FutureBuilder(
         future: postFuture,
